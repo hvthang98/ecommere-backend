@@ -23,11 +23,10 @@ const categoryController = {
             })
 
             if (req.body.parent) {
-                const parent = await categoryModel.findById(req.body.parent)
-                if (parent) {
-                    parent.childrens.push(category._id)
-                    await parent.save()
-                }
+                categoryController.saveChildrenCategory(
+                    req.body.parent,
+                    category.id
+                )
             }
 
             apiResponse.apiSuccess(res, __('Success'), category, 200)
@@ -35,8 +34,69 @@ const categoryController = {
             apiResponse.apiError(res, __('An error occurred'), [], 400)
         }
     },
-    update: (req, res) => {},
-    delete: (req, res) => {},
+    update: async (req, res) => {
+        const { id } = req.params
+        const { name, sort, active } = req.body
+
+        try {
+            const category = await categoryModel.findById(id)
+            if (req.body.parent) {
+                const parentNewId = req.body.parent
+                const parentCurrent = await categoryModel.findOne({
+                    childrens: {
+                        $in: [category.id],
+                    },
+                })
+                if (parentCurrent) {
+                    if (parentNewId != parentCurrent.id) {
+                        categoryController.deleteParentCategory(category.id)
+                    }
+                }
+                //save category childrent into category parent new
+                categoryController.saveChildrenCategory(
+                    parentNewId,
+                    category.id
+                )
+            }
+
+            return apiResponse.apiSuccess(res, __('Success'), [], 200)
+        } catch (err) {
+            console.log(err)
+        }
+
+        return apiResponse.apiError(res, __('Error'), [], 400)
+    },
+    destroy: async (req, res) => {
+        const { id } = req.params
+        try {
+            const category = await categoryModel.findByIdAndDelete(id)
+            categoryController.deleteParentCategory(id)
+
+            apiResponse.apiSuccess(res, __('Success'), [], 200)
+        } catch (error) {
+            apiResponse.apiError(res, __('An error occurred'), [], 400)
+        }
+    },
+    saveChildrenCategory: async (parentId, childrenId) => {
+        const parent = await categoryModel.findById(parentId)
+        if (parent) {
+            parent.childrens.push(childrenId)
+            parent.save()
+        }
+    },
+    deleteParentCategory: async (childrenId) => {
+        const parent = await categoryModel.findOne({
+            childrens: {
+                $in: [childrenId],
+            },
+        })
+        if (parent) {
+            parent.childrens = parent.childrens.filter(
+                (child) => child != childrenId
+            )
+            parent.save()
+        }
+    },
 }
 
 export default categoryController
