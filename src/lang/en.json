@@ -1,0 +1,13 @@
+{
+	"username_required": "username field is required",
+	"username_email": "username field is email",
+	"password_required": "password field is required",
+	"password_min_characters": "The password field requires a minimum of %s characters",
+	"name_required": "username field is required",
+	"An error occurred": "An error occurred",
+	"Not authorized, no token": "Not authorized, no token",
+	"Token is invalid": "Token is invalid",
+	"Success": "Success",
+	"User not found": "User not found",
+	"email is invalid": "email is invalid"
+}

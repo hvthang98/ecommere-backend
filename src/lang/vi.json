@@ -1,0 +1,10 @@
+{
+	"username_required": "Trường username bắt buộc",
+	"username_exits": " Username đã tồn tại",
+	"username_email": "username_email",
+	"password_required": "password_required",
+	"password_min_characters": "password_min_characters",
+	"Token is invalid": "Token không hợp lệ",
+	"Success": "Thành công",
+	"Not Found": "Không tìm thấy"
+}
