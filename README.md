@@ -1,3 +1,4 @@
+## Install
 ### Env Variables
 
 Create a .env file in then root and add the following
@@ -16,8 +17,6 @@ Or
 cp .env.example .env
 ```
 
-### Install Dependencies
-
 ```
 npm install
 ```
@@ -28,10 +27,6 @@ npm install
 npm run server
 ```
 
-## Build & Deploy
-
-```
-```
 ### Seed Database
 You can use the following commands to seed the database with some sample users and products as well as destroy all data
 
@@ -43,15 +38,15 @@ npm run data:import
 npm run data:destroy
 ```
 
-```
-Sample User Logins
+### Sample User Logins
 
+```
 admin@example.com (Admin)
 123456
 
 ```
 
-### Swagger
+## Swagger
 ```
 local: http://localhost:5000/api-docs
 
