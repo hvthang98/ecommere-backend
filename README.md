@@ -52,3 +52,9 @@ local: http://localhost:5000/api-docs
 
 develop: 
 ```
+
+```
+# Postman json
+
+https://www.getpostman.com/collections/f83b73f5a6e0f3122211
+```
