@@ -41,7 +41,7 @@ npm run server
 ### Sample User Logins
 
 ```
-#Admin
+# Admin
 admin@example.com 
 123456
 ```
