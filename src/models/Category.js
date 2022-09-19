@@ -20,6 +20,10 @@ const schema = mongoose.Schema(
                 ref: 'Category',
             },
         ],
+        showFirstLevel: {
+            type: Boolean,
+            default: true,
+        }
     },
     {
         timestamps: true,

@@ -5,6 +5,6 @@ import * as authMiddleware from '../../middleware/authMiddleware.js'
 
 router.use(authMiddleware.admin)
 router.route('/').get(categoryController.index).post(categoryController.store)
-router.route('/:id').put(categoryController.update).delete(categoryController.destroy)
+router.route('/:id').get(categoryController.show).put(categoryController.update).delete(categoryController.destroy)
 
 export default router
