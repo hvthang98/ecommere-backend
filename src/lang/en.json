@@ -10,5 +10,6 @@
 	"Success": "Success",
 	"User not found": "User not found",
 	"email is invalid": "email is invalid",
-	"Error": "Error"
+	"Error": "Error",
+	"Category not found": "Category not found"
 }

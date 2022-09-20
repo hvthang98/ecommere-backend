@@ -73,7 +73,6 @@ const categoryController = {
      */
     show: async (req, res) => {
         const { id } = req.params
-        console.log(id)
         try {
             const category = await categoryModel
                 .findOne({ _id: id, active: true })
@@ -89,6 +88,9 @@ const categoryController = {
                         },
                     },
                 })
+            if (!category) {
+                apiResponse.apiError(res, __('Category not found'), [], 404)
+            }
             apiResponse.apiSuccess(res, __('Success'), category, 200)
         } catch (error) {
             console.error(error)
