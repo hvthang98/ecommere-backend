@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/ErrorMiddleware.js'
-import * as database  from './config/database.js'
+import * as database from './config/database.js'
 import routes from './routes/index.js'
 import swagger from './swaggers/index.js'
 import fs from 'fs'
@@ -12,13 +12,22 @@ import moment from 'moment'
 import i18n from 'i18n'
 import validator from './config/validator.js'
 const __dirname = path.resolve()
+import bodyParser from 'body-parser'
 
 //init
 const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '/public')))
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+fs.symlink(
+    __dirname + '/src/storages/uploads',   
+    __dirname + '/public/uploads',
+    'dir',
+    err =>{}
+);
 
 //i18n
 const pathFolderLang = __dirname + `/src/lang`

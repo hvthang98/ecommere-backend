@@ -1,9 +1,28 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/Product.js'
+import productModel from '../models/Product.js'
 
-// @desc    Fetch all products
-// @route   GET /api/products
-// @access  Public
+const productController = {
+    index: (req, res) => {},
+    store: async (req, res) => {
+        const auth = req.user
+        const { name, price, active, category } = req.body
+        console.log(req.body);
+        console.log(req.file)
+        // const product = await productModel.create({
+        //     name,
+        //     price,
+        //     active,
+        //     category,
+        //     createBy: auth._id,
+        // })
+        // res.json(product)
+        res.send('ok')
+    },
+    show: (req, res) => {},
+    update: (req, res) => {},
+    destroy: (req, res) => {},
+}
 const getProducts = asyncHandler(async (req, res) => {
     const pageSize = 12
     const page = Number(req.query.pageNumber) || 1
@@ -150,12 +169,4 @@ const getTopProducts = asyncHandler(async (req, res) => {
     res.json(products)
 })
 
-export {
-    getProducts,
-    getProductById,
-    deleteProduct,
-    createProduct,
-    updateProduct,
-    createProductReview,
-    getTopProducts,
-}
+export default productController
