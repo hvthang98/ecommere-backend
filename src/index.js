@@ -13,6 +13,7 @@ import i18n from 'i18n'
 import validator from './config/validator.js'
 const __dirname = path.resolve()
 import bodyParser from 'body-parser'
+import helperApp from './helpers/helperApp.js'
 
 //init
 const app = express()
@@ -31,13 +32,11 @@ fs.symlink(
 
 //i18n
 const pathFolderLang = __dirname + `/src/lang`
-if (!fs.existsSync(pathFolderLang)) {
-    fs.mkdirSync(pathFolderLang)
-}
+helperApp.mkdir(pathFolderLang)
 app.use(i18n.init)
 i18n.configure({
     locales: ['en', 'vi'],
-    directory: __dirname + '/src/lang',
+    directory: pathFolderLang,
     defaultLocale: 'en',
     header: 'accept-language',
     cookie: 'lang',
