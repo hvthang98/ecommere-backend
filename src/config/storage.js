@@ -5,6 +5,7 @@ const __dirname = path.resolve()
 import helperApp from '../helpers/helperApp.js'
 
 const upload = (storagePath = '', fileName = null) => {
+    storagePath = storagePath.match(/\w.+\w/g)[0]
     let folderPath = `${__dirname}/src/storages/uploads/${storagePath}`
     //make directory if it doesn't exists
     helperApp.mkdir(folderPath)
@@ -24,7 +25,7 @@ const upload = (storagePath = '', fileName = null) => {
             )}_${Date.now()}.${file.originalname.split('.').pop()}`
 
             //add public path to request
-            file.publicPath = `uploads/${folderPath}/${fileName}`
+            file.publicPath = `uploads/${storagePath}/${fileName}`
             //callback
             cb(null, fileName)
         },

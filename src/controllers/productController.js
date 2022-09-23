@@ -1,23 +1,29 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/Product.js'
 import productModel from '../models/Product.js'
+import * as apiRespone from '../helpers/ApiRespone.js'
 
 const productController = {
     index: (req, res) => {},
     store: async (req, res) => {
         const auth = req.user
-        const { name, price, active, category } = req.body
-        console.log(req.body);
-        console.log(req.file)
-        // const product = await productModel.create({
-        //     name,
-        //     price,
-        //     active,
-        //     category,
-        //     createBy: auth._id,
-        // })
-        // res.json(product)
-        res.send('ok')
+        const { name, price, active, category, countInStock, description } =
+            req.body
+        let dataInsert = {
+            name,
+            category,
+            description,
+            price,
+            active,
+            countInStock,
+            createBy: auth._id,
+        }
+        if (req.file) {
+            dataInsert.image = req.file.publicPath
+        }
+        const product = await productModel.create(dataInsert)
+
+        apiRespone.apiSuccess(res, __('Success'), product, 201)
     },
     show: (req, res) => {},
     update: (req, res) => {},
